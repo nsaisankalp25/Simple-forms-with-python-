@@ -1,0 +1,163 @@
+import tkinter
+from tkinter import Scale
+from tkinter import Button
+from tkinter import Label
+from tkinter import Entry
+from tkinter import Grid
+from tkinter import DoubleVar
+from pandas import read_excel
+import pandas
+import numpy
+from pandas import *
+import pandas as pd
+
+rt = tkinter.Tk()
+rt.geometry("600x450")
+var = DoubleVar()
+
+    
+
+introl = Label(rt, text = 'Are you ready for a simple survey', fg = 'orange',
+font = ('Montserrat', 20), padx = 20, pady = 10)
+introl.grid(row = 0, column = 1)
+
+#Here are the definitions::::
+def closedef():
+    rt.destroy()
+
+Num = 1
+
+def anotherdef():
+    global Num
+    Num = Num + 1        
+    adf = pandas.DataFrame({Num:[nameout, Color, Age]})
+    adf.to_excel('Anew.xlsx', sheet_name = 'Asamplesheet')
+    print('Think the data is in the excel file')
+    yesdef()
+    namelabel.destroy()
+    agelabel.destroy()
+    Colorlabel.destroy()
+    close.destroy()
+    cont.destroy()
+    
+
+def Finish():
+    ageb.destroy()
+    agel.destroy()
+    try:
+        global Age
+        Age = int(ages.get())
+    except:
+        print('Something went wrong')
+    ages.destroy()
+    print('Its in Submit def')
+    global namelabel
+    global Colorlabel
+    global agelabel
+    namelabel = Label(rt, text = 'Your name is {}'.format(nameout), 
+    fg = 'black', bg = 'white', font = ('Montserrat', 18))
+    namelabel.grid(row = 0, column = 0)
+    Colorlabel  = Label(rt, text = 'Your fav color is {}'.format(Color), 
+    fg = 'black', bg = 'white', font = ('Montserrat', 18))
+    Colorlabel.grid(row = 1, column = 0)
+    agelabel = Label(rt, text = 'You age is {}'.format(Age), 
+    fg = 'black', bg = 'white', font = ('Montserrat', 18))
+    agelabel.grid(row = 2, column = 0)
+    global close
+    close = Button(rt, text = "Close", fg = 'White', bg = 'black',
+    activeforeground = 'white', activebackground = 'black', 
+    command = closedef, font = ('Calibri',14), padx = 12, pady = 6)
+    close.grid(row = 3, column = 0)
+    global cont
+    cont = Button(rt, text = "Another Submission", fg = 'black', bg = 'white',
+    activeforeground = 'white', activebackground = 'black', 
+    command = anotherdef, font = ('Calibri',14), padx = 12, pady = 6)
+    cont.grid(row = 3, column = 2)
+
+
+
+def agedef():
+    colore.destroy()
+    colorl.destroy()
+    colors.destroy()
+    global agel
+    agel = Label(rt, text = 'What is your age?', fg = 'black', bg = 'white',
+    font = ('Montserrat', 18))
+    agel.grid(row = 1, column = 0)
+    global ages
+    ages = Scale(rt, from_ = 1, to = 100, variable = var, fg = 'red', 
+    activebackground = 'green', length = 200, width = 15, font = ('calibri', 20))
+    ages.grid(row = 1, column = 1)
+    global ageb
+    ageb = Button(rt, text = "Submit", fg = 'White', bg = 'black',
+    activeforeground = 'white', activebackground = 'black', 
+    command = Finish, font = ('Calibri',14), padx = 12, pady = 6)
+    ageb.grid(row = 2, column = 0)
+
+
+def next2def():
+    global Color 
+    Color = colore.get()
+    colore.destroy()
+    print(Color)
+    colors.destroy()
+    colorl.destroy()
+    agedef()
+
+
+def colordef():
+    global colorl
+    colorl = Label(rt, text = "What is you fav color?", fg = 'black', bg = 'white',
+    font = ('Montserrat', 18))
+    colorl.grid(row = 0, column = 0)
+    global colore
+    colore = Entry(rt, font = ('Raleway', 16))
+    colore.grid(row = 0, column = 1)
+    global colors
+    colors = Button(rt, text = "Next", fg = 'White', bg = 'black',
+    activeforeground = 'white', activebackground = 'black', 
+    command = next2def, font = ('Calibri',14), padx = 12, pady = 6)
+    colors.grid(row = 1, column = 0)
+    
+def next1def():
+    nextb.destroy()
+    global nameout
+    nameout = namee.get()
+    print(nameout)
+    namel.destroy()
+    namee.destroy()
+    colordef()
+
+    
+def yesdef():
+    introl.destroy()
+    yesb.destroy()
+    nob.destroy()
+    global namel
+    namel = Label(rt, text = 'What is your Name?', fg = 'green', 
+    font = ('Poppins', 16))
+    namel.grid(row = 0, column = 0)
+    global namee
+    namee = Entry(rt, font = ('Raleway', 16))
+    namee.grid(row = 0, column = 1)
+    print(namee.get())
+    global nextb
+    nextb = Button(rt, text = "Next", fg = 'White', bg = 'black',
+    activeforeground = 'white', activebackground = 'black', 
+    command = next1def, font = ('Calibri',14), padx = 12, pady = 6)
+    nextb.grid(row = 1, column = 0)
+
+
+
+
+yesb = Button(rt, text = "Yes!", fg = 'white', bg = 'black',
+activeforeground = 'white', activebackground = 'black', command = yesdef,
+font = ('calibri', 14), padx = 12, pady = 6)
+yesb.grid(row = 1, column = 0)
+
+nob = Button(rt, text = 'No', fg = 'black', bg = 'white',
+activeforeground = 'black', activebackground = 'white', command = closedef,
+font = ('calibri',14), padx = 12, pady = 6)
+nob.grid(row = 1, column = 1)
+
+rt.mainloop()
